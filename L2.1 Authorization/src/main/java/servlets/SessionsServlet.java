@@ -45,7 +45,7 @@ public class SessionsServlet extends HttpServlet {
     public void doPost(HttpServletRequest request,
                        HttpServletResponse response) throws ServletException, IOException {
         String login = request.getParameter("login");
-        String pass = request.getParameter("pass");
+        String pass = request.getParameter("password");
 
         if (login == null || pass == null) {
             response.setContentType("text/html;charset=utf-8");
