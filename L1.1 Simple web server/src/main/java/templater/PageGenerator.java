@@ -32,7 +32,9 @@ public class PageGenerator {
     public String getPage(String filename, Map<String, Object> data) {
         Writer stream = new StringWriter();
         try {
-            Template template = cfg.getTemplate(HTML_DIR + File.separator + filename);
+            cfg.setDirectoryForTemplateLoading(new File(
+                    "D:\\JAVA\\WEB_SERVICE\\Stepic_Java_Webserver\\L1.1 Simple web server\\templates"));
+            Template template = cfg.getTemplate(filename);
             template.process(data, stream);
         } catch (IOException | TemplateException e) {
             e.printStackTrace();
