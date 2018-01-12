@@ -34,11 +34,11 @@ public class Main {
         context.addServlet(new ServletHolder(new SignUpServlet(accountService)), "/signup");
         context.addServlet(new ServletHolder(new SignInServlet(accountService)), "/signin");
 
-        ResourceHandler resource_handler = new ResourceHandler();
-        resource_handler.setResourceBase("L2.1 Authorization/public_html");
+        ResourceHandler resourceHandler = new ResourceHandler();
+        resourceHandler.setResourceBase("L2.1 Authorization/public_html");
 
         HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[]{resource_handler, context});
+        handlers.setHandlers(new Handler[]{resourceHandler, context});
 
         Server server = new Server(8080);
         server.setHandler(handlers);
