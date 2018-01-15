@@ -46,6 +46,12 @@ public class UsersDataSet implements Serializable { // Serializable Important to
         this.setPassword("");
     }
 
+    public UsersDataSet(String name, String password) {
+        this.setId(-1);
+        this.setName(name);
+        this.setPassword(password);
+    }
+
     @SuppressWarnings("UnusedDeclaration")
     public String getName() {
         return name;

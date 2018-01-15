@@ -13,12 +13,17 @@ import servlets.SignUpServlet;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        AccountService accountService = new AccountService();
+//        AccountService accountService = new AccountService();
+        DBService dbService = new DBService();
+        dbService.printConnectInfo();
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
-        context.addServlet(new ServletHolder(new SignUpServlet(accountService)), "/signup");
-        context.addServlet(new ServletHolder(new SignInServlet(accountService)), "/signin");
+//        context.addServlet(new ServletHolder(new SignUpServlet(accountService)), "/signup");
+//        context.addServlet(new ServletHolder(new SignInServlet(accountService)), "/signin");
+
+        context.addServlet(new ServletHolder(new SignUpServlet(dbService)), "/signup");
+        context.addServlet(new ServletHolder(new SignInServlet(dbService)), "/signin");
 
         ResourceHandler resourceHandler = new ResourceHandler();
         resourceHandler.setResourceBase("HW03/static");
@@ -26,8 +31,6 @@ public class Main {
         HandlerList handlers = new HandlerList();
         handlers.setHandlers(new Handler[]{resourceHandler, context});
 
-        DBService dbService = new DBService();
-        dbService.printConnectInfo();
 
         Server server = new Server(8080);
         server.setHandler(handlers);

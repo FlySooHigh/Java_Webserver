@@ -1,5 +1,7 @@
 package accounts;
 
+import dbService.DBService;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,9 +14,11 @@ import java.util.Map;
  */
 public class AccountService {
     private final Map<String, UserProfile> loginToProfile;
+    private DBService dbService;
 
     public AccountService() {
         loginToProfile = new HashMap<>();
+
     }
 
     public void addNewUser(UserProfile userProfile) {

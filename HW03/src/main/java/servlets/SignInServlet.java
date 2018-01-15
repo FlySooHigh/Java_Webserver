@@ -1,7 +1,8 @@
 package servlets;
 
-import accounts.AccountService;
-import accounts.UserProfile;
+import dbService.DBException;
+import dbService.DBService;
+import dbService.dataSets.UsersDataSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,10 +12,11 @@ import java.io.IOException;
 
 public class SignInServlet extends HttpServlet {
 
-    private final AccountService accountService;
+//    private final AccountService accountService;
+    private final DBService dbService;
 
-    public SignInServlet(AccountService accountService) {
-        this.accountService = accountService;
+    public SignInServlet(DBService dbService) {
+        this.dbService = dbService;
     }
 
     @Override
@@ -23,22 +25,27 @@ public class SignInServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
-        UserProfile user = accountService.getUserByLogin(login);
-
-        if (user.getLogin().equals(login)){
-            if (user.getPass().equals(password)){
-                resp.setStatus(HttpServletResponse.SC_OK);
-                resp.getWriter().println("Authorized: " + login);
+//        UserProfile user = accountService.getUserByLogin(login);
+//        try {
+            UsersDataSet user = dbService.getUserByName(login);
+            //        if (user.getLogin().equals(login)){
+            if (user.getName().equals(login)){
+//            if (user.getPass().equals(password)){
+                if (user.getPassword().equals(password)){
+                    resp.setStatus(HttpServletResponse.SC_OK);
+                    resp.getWriter().println("Authorized: " + login);
+                }
+                else{
+                    resp.getWriter().println("Login and Password do not match");
+                }
             }
-            else{
-                resp.getWriter().println("Login and Password do not match");
+            else {
+                resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                resp.getWriter().println("Unauthorized");
             }
-        }
-        else {
-            resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            resp.getWriter().println("Unauthorized");
-        }
-
+//        } catch (DBException e) {
+//            e.printStackTrace();
+//        }
 
     }
 

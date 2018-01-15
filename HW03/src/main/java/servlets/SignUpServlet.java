@@ -1,7 +1,7 @@
 package servlets;
 
-import accounts.AccountService;
-import accounts.UserProfile;
+import dbService.DBException;
+import dbService.DBService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,10 +11,11 @@ import java.io.IOException;
 
 public class SignUpServlet extends HttpServlet {
 
-    private final AccountService accountService;
+//    private final AccountService accountService;
+    private final DBService dbService;
 
-    public SignUpServlet(AccountService accountService) {
-        this.accountService = accountService;
+    public SignUpServlet(DBService dbService) {
+        this.dbService = dbService;
     }
 
     @Override
@@ -29,8 +30,15 @@ public class SignUpServlet extends HttpServlet {
             return;
         }
 
-        accountService.addNewUser(new UserProfile(login, pass, login));
-        resp.getWriter().println("User \"" + accountService.getUserByLogin(login).getLogin() + "\" signed up successfully");
+        try {
+            long userId = dbService.addUser(login, pass);
+            resp.getWriter().println("User \"" + dbService.getUserById(userId) + "\" signed up successfully");
+        } catch (DBException e) {
+            e.printStackTrace();
+        }
+
+//        accountService.addNewUser(new UserProfile(login, pass, login));
+//        resp.getWriter().println("User \"" + accountService.getUserByLogin(login).getLogin() + "\" signed up successfully");
 
     }
 }

@@ -49,7 +49,7 @@ public class DBService {
     }
 
 
-    public UsersDataSet getUser(long id) throws DBException {
+    public UsersDataSet getUserById(long id) throws DBException {
         try {
             Session session = sessionFactory.openSession();
             UsersDAO dao = new UsersDAO(session);
@@ -61,12 +61,21 @@ public class DBService {
         }
     }
 
-    public long addUser(String name) throws DBException {
+    public UsersDataSet getUserByName(String name){
+        Session session = sessionFactory.openSession();
+        UsersDAO dao = new UsersDAO(session);
+        long userId = dao.getUserId(name);
+        UsersDataSet dataSet = dao.get(userId);
+        session.close();
+        return dataSet;
+    }
+
+    public long addUser(String name, String password) throws DBException {
         try {
             Session session = sessionFactory.openSession();
             Transaction transaction = session.beginTransaction();
             UsersDAO dao = new UsersDAO(session);
-            long id = dao.insertUser(name);
+            long id = dao.insertUser(name, password);
             transaction.commit();
             session.close();
             return id;
