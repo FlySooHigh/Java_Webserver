@@ -1,28 +1,18 @@
 package main;
 
 import accounts.AccountService;
-import accounts.UserProfile;
+import dbService.DBService;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
-import servlets.SessionsServlet;
 import servlets.SignInServlet;
 import servlets.SignUpServlet;
-import servlets.UsersServlet;
 
-/**
- * @author v.chibrikov
- *         <p>
- *         Пример кода для курса на https://stepic.org/
- *         <p>
- *         Описание курса и лицензия: https://github.com/vitaly-chibrikov/stepic_java_webserver
- */
 public class Main {
     public static void main(String[] args) throws Exception {
-
         AccountService accountService = new AccountService();
 
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
@@ -31,10 +21,13 @@ public class Main {
         context.addServlet(new ServletHolder(new SignInServlet(accountService)), "/signin");
 
         ResourceHandler resourceHandler = new ResourceHandler();
-        resourceHandler.setResourceBase("L2.1 Authorization/public_html");
+        resourceHandler.setResourceBase("HW03/static");
 
         HandlerList handlers = new HandlerList();
         handlers.setHandlers(new Handler[]{resourceHandler, context});
+
+        DBService dbService = new DBService();
+        dbService.printConnectInfo();
 
         Server server = new Server(8080);
         server.setHandler(handlers);

@@ -20,8 +20,14 @@ public class Main {
             long userId = dbService.addUser("tully");
             System.out.println("Added user id: " + userId);
 
+            long userId2 = dbService.addUser("sally");
+            System.out.println("Added user id: " + userId2);
+
             UsersDataSet dataSet = dbService.getUser(userId);
             System.out.println("User data set: " + dataSet);
+
+            UsersDataSet dataSet2 = dbService.getUser(userId2);
+            System.out.println("User data set: " + dataSet2);
 
             dbService.cleanUp();
         } catch (DBException e) {
