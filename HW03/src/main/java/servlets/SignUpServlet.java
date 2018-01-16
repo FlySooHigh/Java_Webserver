@@ -37,8 +37,5 @@ public class SignUpServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-//        accountService.addNewUser(new UserProfile(login, pass, login));
-//        resp.getWriter().println("User \"" + accountService.getUserByLogin(login).getLogin() + "\" signed up successfully");
-
     }
 }

@@ -12,7 +12,6 @@ import java.io.IOException;
 
 public class SignInServlet extends HttpServlet {
 
-//    private final AccountService accountService;
     private final DBService dbService;
 
     public SignInServlet(DBService dbService) {
@@ -25,12 +24,8 @@ public class SignInServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
 
-//        UserProfile user = accountService.getUserByLogin(login);
-//        try {
             UsersDataSet user = dbService.getUserByName(login);
-            //        if (user.getLogin().equals(login)){
             if (user.getName().equals(login)){
-//            if (user.getPass().equals(password)){
                 if (user.getPassword().equals(password)){
                     resp.setStatus(HttpServletResponse.SC_OK);
                     resp.getWriter().println("Authorized: " + login);
@@ -43,9 +38,6 @@ public class SignInServlet extends HttpServlet {
                 resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 resp.getWriter().println("Unauthorized");
             }
-//        } catch (DBException e) {
-//            e.printStackTrace();
-//        }
 
     }
 
