@@ -1,0 +1,32 @@
+﻿<html>
+
+    <head>
+        <meta charset="UTF-8"/>
+        <title>HW04: Jetty WebSocket Requests to /chat</title>
+        <script type="text/javascript">
+
+            var ws;
+
+            function init() {
+                ws = new WebSocket("ws://localhost:8080/chat");
+
+                ws.onopen = function (event) {
+                }
+
+                ws.onmessage = function (event) {
+                    var message = event.data;
+                    ws.send(message);
+                }
+
+                ws.onclose = function (event) {
+                }
+            };
+
+        </script>
+    </head>
+
+    <body onload="init();">
+
+    </body>
+
+</html>

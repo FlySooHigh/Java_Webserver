@@ -1,6 +1,6 @@
 package main;
 
-import chat.WebSocketChatServlet;
+import request.WebSocketRequestServlet;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -13,17 +13,18 @@ public class Main {
         Server server = new Server(8080);
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
-        context.addServlet(new ServletHolder(new WebSocketChatServlet()), "/chat");
+        context.addServlet(new ServletHolder(new WebSocketRequestServlet()), "/chat");
 
-        ResourceHandler resource_handler = new ResourceHandler();
-        resource_handler.setDirectoriesListed(true);
-//        resource_handler.setResourceBase("L4.1 WebSockets/public_html");
+        ResourceHandler resourceHandler = new ResourceHandler();
+        resourceHandler.setDirectoriesListed(true);
+        resourceHandler.setResourceBase("HW04/src/main/resources/html");
 
         HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[]{resource_handler, context});
+        handlers.setHandlers(new Handler[]{resourceHandler, context});
         server.setHandler(handlers);
 
         server.start();
+        System.out.println("Server started");
         server.join();
     }
 }
