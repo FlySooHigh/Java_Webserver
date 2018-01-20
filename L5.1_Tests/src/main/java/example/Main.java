@@ -53,7 +53,7 @@ public class Main {
 
         ResourceHandler resourceHandler = new ResourceHandler();
         resourceHandler.setDirectoriesListed(true);
-        resourceHandler.setResourceBase("L5.1_Tests/static");
+        resourceHandler.setResourceBase("L5.1_Tests/src/main/java/resources/static");
 
         HandlerList handlers = new HandlerList();
         handlers.setHandlers(new Handler[]{resourceHandler, context});
