@@ -1,5 +1,5 @@
 <class name="resources.DBParametersResource">
-<name>db_example</name>
-<pass>tully</pass>
-<user>tully</user>
+    <name>Alex</name>
+    <pass>123</pass>
+    <user>Alex123</user>
 </class>

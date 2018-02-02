@@ -12,7 +12,7 @@ public class ObjectWriter {
     }
 
     private static void stringExample() {
-        write("Ph'nglui mglw'nafh Cthulhu R'lyeh wgah'nagl fhtagn", "./string.bin");
+        write("Abcdefgh", "./string.bin");
         String fromFile = (String) read("./string.bin");
         System.out.println(fromFile);
     }

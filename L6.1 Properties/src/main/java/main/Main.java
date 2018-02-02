@@ -16,7 +16,7 @@ import java.util.Properties;
 public class Main {
     public static void main(String[] args) throws Exception {
         Properties properties = new Properties();
-        try (InputStream input = new FileInputStream("config.properties")) {
+        try (InputStream input = new FileInputStream("L6.1 Properties/config.properties")) {
             properties.load(input);
 
 

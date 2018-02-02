@@ -14,7 +14,7 @@ import java.nio.channels.FileChannel;
  */
 public class Main {
     public static void main(String[] args) throws Exception {
-        RandomAccessFile aFile = new RandomAccessFile("data/data.txt", "rw");
+        RandomAccessFile aFile = new RandomAccessFile("L6.4 NIO/data/data.txt", "rw");
         FileChannel inChannel = aFile.getChannel();
 
         ByteBuffer buf = ByteBuffer.allocate(64);
