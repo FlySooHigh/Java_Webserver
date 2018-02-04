@@ -20,7 +20,7 @@
 	<build>
         <resources>
             <resource>
-                <directory>${basedir}/src/main/java/resources/cfg</directory>
+                <directory>src/main/java/resources/loggerCfg</directory>
                 <includes>
                     <include>log4j2.xml</include>
                 </includes>
