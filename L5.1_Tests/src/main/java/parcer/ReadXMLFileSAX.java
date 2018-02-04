@@ -1,4 +1,4 @@
-package example;
+package parcer;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;

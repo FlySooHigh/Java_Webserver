@@ -1,4 +1,4 @@
-package example;
+package reflection;
 
 /**
  * @author v.chibrikov

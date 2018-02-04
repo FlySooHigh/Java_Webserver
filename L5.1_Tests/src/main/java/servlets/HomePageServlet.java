@@ -1,7 +1,7 @@
 package servlets;
 
 import accountServer.AccountServerI;
-import example.ReadXMLFileSAX;
+import parcer.ReadXMLFileSAX;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import resourceServer.ResourceServer;
