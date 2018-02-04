@@ -3,6 +3,7 @@ package servlets;
 import accountServer.AccountServer;
 import accountServer.AccountServerI;
 import org.junit.Test;
+import resourceServer.ResourceServer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import static org.mockito.Mockito.*;
  */
 public class HomePageServletTest {
     private AccountServerI accountServer = mock(AccountServer.class);
+    private ResourceServer resourceServer = mock(ResourceServer.class);
 
     private HttpServletResponse getMockedResponse(StringWriter stringWriter) throws IOException {
         HttpServletResponse response = mock(HttpServletResponse.class);
@@ -52,7 +54,7 @@ public class HomePageServletTest {
         HttpServletRequest request = getMockedRequest(HomePageServlet.PAGE_URL);
         when(request.getParameter("remove")).thenReturn("");
 
-        HomePageServlet homePage = new HomePageServlet(accountServer);
+        HomePageServlet homePage = new HomePageServlet(accountServer , resourceServer);
 
         homePage.doGet(request, response);
 

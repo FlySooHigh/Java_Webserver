@@ -1,8 +1,11 @@
 package servlets;
 
 import accountServer.AccountServerI;
+import example.ReadXMLFileSAX;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import resourceServer.ResourceServer;
+import resources.TestResource;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,13 +23,23 @@ import java.io.IOException;
  */
 public class HomePageServlet extends HttpServlet {
     static final Logger logger = LogManager.getLogger(HomePageServlet.class.getName());
-    public static final String PAGE_URL = "/admin";
+    public static final String PAGE_URL = "/resources";
     private final AccountServerI accountServer;
+    private final ResourceServer resourceServer;
 
-    public HomePageServlet(AccountServerI accountServer) {
+    public HomePageServlet(AccountServerI accountServer, ResourceServer resourceServer) {
         this.accountServer = accountServer;
+        this.resourceServer = resourceServer;
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String pathToResource = req.getParameter("path");
+        TestResource xmlResource = (TestResource) ReadXMLFileSAX.readXML(pathToResource);
+        resourceServer.setResource(xmlResource);
+    }
+
+    @Override
     public void doGet(HttpServletRequest request,
                       HttpServletResponse response) throws ServletException, IOException {
 
