@@ -8,11 +8,14 @@
 public class CallCounter {
     private int count = 0;
 
-    public synchronized void increment(){
-        count++;
+    public   void increment(){
+//        synchronized(this){
+//            count++;
+        count = count + 1;
+//        }
     }
 
-    public int getCount() {
+    public  int  getCount() {
         return count;
     }
 }
