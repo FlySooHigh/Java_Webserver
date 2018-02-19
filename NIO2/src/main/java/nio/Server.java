@@ -8,16 +8,22 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 
 public class Server {
+
+    private static int messageCounter = 0;
+
     public static void main(String[] args) throws IOException {
         Server server = new Server();
         SocketChannel socketChannel = server.createServerSocketChannel();
-        String message = server.readFromSocketChannel(socketChannel);
-        System.out.println("Message from client: " + message);
-        if (!message.equals("Bue.")){
-            server.writeResponseMessage(socketChannel, message);
-        }
-        else {
-            socketChannel.close();
+
+        while (true) {
+            String message = server.readFromSocketChannel(socketChannel);
+            System.out.println(++messageCounter + " - Message from client: " + message);
+            if (!message.equals("Bue.")) {
+                server.writeResponseMessage(socketChannel, message);
+            } else {
+                server.writeResponseMessage(socketChannel, message);
+                break;
+            }
         }
         socketChannel.close();
     }
@@ -48,10 +54,11 @@ public class Server {
         SocketChannel client;
         serverSocket = ServerSocketChannel.open();
         serverSocket.socket().bind(new InetSocketAddress(9000));
-        System.out.println("Server started at: " + serverSocket.getLocalAddress());
+        System.out.println("Server started");
+        System.out.println("Server local address -> " + serverSocket.getLocalAddress());
         System.out.println("Waiting for client to connect...");
         client = serverSocket.accept();
-        System.out.println("Client connected. " + client.getRemoteAddress());
+        System.out.println("Client connected. Client's remote address -> " + client.getRemoteAddress());
         return client;
     }
 }
