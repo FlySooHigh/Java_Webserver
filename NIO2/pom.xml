@@ -9,8 +9,6 @@
     <version>1.0-SNAPSHOT</version>
 
     <build>
-        <!--<finalName>server</finalName>-->
-        <!--<outputDirectory>${basedir}</outputDirectory>-->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

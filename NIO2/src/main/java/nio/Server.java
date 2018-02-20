@@ -7,9 +7,9 @@ import java.nio.channels.SocketChannel;
 
 public class Server {
 
-    public static void main(String[] args) throws IOException {
+    void start() throws IOException {
         ServerSocketChannel serverSocket = ServerSocketChannel.open();
-        serverSocket.socket().bind(new InetSocketAddress(9000));
+        serverSocket.socket().bind(new InetSocketAddress(5050));
         System.out.println("Server started");
         System.out.println("Server local address -> " + serverSocket.getLocalAddress());
         System.out.println("Waiting for client to connect...");

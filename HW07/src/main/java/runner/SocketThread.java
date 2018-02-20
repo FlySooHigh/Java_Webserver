@@ -6,13 +6,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-/**
- * Created by sbt-kadatskiy-av on 09.02.2018.
- */
-public class SocketThread extends Thread{
+class SocketThread extends Thread{
     private Socket clientSocket;
 
-    public SocketThread(Socket clientSocket) {
+    SocketThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
 

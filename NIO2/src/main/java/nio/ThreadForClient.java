@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
+import java.util.concurrent.atomic.AtomicInteger;
 
 class ThreadForClient extends Thread{
 
     private SocketChannel socketChannel;
-    private static int messageCounter = 0;
+    private static AtomicInteger messageCounter = new AtomicInteger(0);
 
     ThreadForClient(SocketChannel socketChannel) {
         this.socketChannel = socketChannel;
@@ -18,23 +19,28 @@ class ThreadForClient extends Thread{
     public void run() {
         while (true) {
             String message = readFromSocketChannel(socketChannel);
-            System.out.println(++messageCounter + " - Message from client: " + message + " " + Thread.currentThread());
+            System.out.println(messageCounter.incrementAndGet() + " - Message from client: " + message + " " + Thread.currentThread());
+
+            if (message == null){break;}
+
             if (!message.equals("Bue.")) {
+//                System.out.println(message);
                 writeResponseMessage(socketChannel, message);
             } else {
+//                System.out.println(message);
                 writeResponseMessage(socketChannel, message);
                 break;
             }
         }
-//        try {
-//            socketChannel.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            socketChannel.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private String readFromSocketChannel(SocketChannel socketChannel) {
-        ByteBuffer buffer = ByteBuffer.allocate(16);
+    private synchronized String readFromSocketChannel(SocketChannel socketChannel) {
+        ByteBuffer buffer = ByteBuffer.allocate(64);
         try {
             if (socketChannel.read(buffer) > 0){
                 buffer.flip();
@@ -48,8 +54,8 @@ class ThreadForClient extends Thread{
         return null;
     }
 
-    private void writeResponseMessage(SocketChannel socketChannel, String message) {
-        ByteBuffer buffer = ByteBuffer.allocate(16);
+    private synchronized void writeResponseMessage(SocketChannel socketChannel, String message) {
+        ByteBuffer buffer = ByteBuffer.allocate(64);
         buffer.put(message.getBytes());
         if (buffer.hasRemaining()){
             buffer.flip();
