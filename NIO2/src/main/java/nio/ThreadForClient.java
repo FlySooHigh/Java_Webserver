@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 class ThreadForClient extends Thread{
 
     private SocketChannel socketChannel;
-    private static AtomicInteger messageCounter = new AtomicInteger(0);
+    private AtomicInteger messageCounter = new AtomicInteger(0);
 
     ThreadForClient(SocketChannel socketChannel) {
         this.socketChannel = socketChannel;
@@ -23,11 +23,9 @@ class ThreadForClient extends Thread{
 
             if (message == null){break;}
 
-            if (!message.equals("Bue.")) {
-//                System.out.println(message);
+            if (!message.equals("Bye")) {
                 writeResponseMessage(socketChannel, message);
             } else {
-//                System.out.println(message);
                 writeResponseMessage(socketChannel, message);
                 break;
             }

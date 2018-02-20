@@ -33,7 +33,7 @@
                     <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
-                            <mainClass>nio.Server</mainClass>
+                            <mainClass>nio.ServerStarter</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

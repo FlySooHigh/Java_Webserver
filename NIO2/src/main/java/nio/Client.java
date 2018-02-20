@@ -9,8 +9,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 class Client {
 
-    private final String MESSAGE = "Privet";
-    private final String GOODBYE_MESSAGE = "Bue.";
+    private final String MESSAGE = "Hello";
+    private final String GOODBYE_MESSAGE = "Bye";
     private static final int MESSAGES_TO_SEND = 100;
     private AtomicInteger messageCounter = new AtomicInteger(0);
 
@@ -26,7 +26,7 @@ class Client {
     private SocketChannel createChannel() throws IOException {
         SocketChannel socketChannel = SocketChannel.open();
         socketChannel.connect(new InetSocketAddress("localhost", 5050));
-        System.out.println("Client successfully connected");
+        System.out.println("Client successfully connected, local address -> " + socketChannel.getLocalAddress());
         return socketChannel;
     }
 
